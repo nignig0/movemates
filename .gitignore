@@ -1,0 +1,53 @@
+# Compiled Python files
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+env/
+
+# Editor/IDE-specific files
+.vscode/
+.idea/
+
+# System or temporary files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Dependency directories
+lib/
+lib64/
+lib32/
+bin/
+
+# Compiled files
+*.pyd
+*.so
+*.dylib
+*.db
+
+# Local configuration files
+*.sqlite
+*.env
+
+# Ignore your API documentation if you generate it as part of your project
+docs/
+
+# Ignore database dumps or migrations
+alembic/versions/
+migrations/
+
+# Ignore coverage reports
+htmlcov/
+
+# Ignore cache directories
+.cache/
+
+# Ignore environment-specific configuration files
+.env
+
+# Ignore user-specific configuration files
+config.yml
