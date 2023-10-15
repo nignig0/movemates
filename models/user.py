@@ -4,11 +4,13 @@ from enums import *
 from pydantic.networks import EmailStr
 
 class User(BaseModel):
-    _id: str = Field(default_factory=uuid.uuid4, alias='_id')
     first_name: str
     last_name: str
     password: str
-    profile_picture: str
+    profile_picture: str = None
     email: EmailStr = Field(unique = True )
-    contact_info: list[str]
+    contact_info: list[str] = None
     
+class LoginPayload(BaseModel):
+    email: EmailStr
+    password: str

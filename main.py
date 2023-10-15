@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from dotenv import dotenv_values
 from pymongo import MongoClient
-from endpoints import trips, user
+from endpoints import trips, user, auth
 
 app = FastAPI()
 
@@ -19,3 +19,4 @@ def close_db_connection():
 
 app.include_router(trips.router)
 app.include_router(user.router)
+app.include_router(auth.router)
