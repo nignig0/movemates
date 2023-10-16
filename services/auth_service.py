@@ -2,6 +2,7 @@ import time
 import jwt
 from typing import Dict
 from dotenv import dotenv_values
+from fastapi import HTTPException, Request, status
 
 config = dotenv_values('.env')
 algorithm = config['algorithm']
@@ -20,7 +21,7 @@ def signJWT(user_id: str) -> Dict[str,str]:
 
     token = jwt.encode(payload=payload, key = secret, algorithm=algorithm)
     
-    return token_response(token)
+    return token_response(f'Bearer {token}')
 
 def unsignJWT(token: str) -> Dict:
     try:
@@ -32,3 +33,19 @@ def unsignJWT(token: str) -> Dict:
         return {
             'error': e
         }
+
+def checkAuthorisation(request: Request):
+    authorization_header = request.headers.get('Authorization')
+    
+    if not authorization_header:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Provide a token')
+    
+    token = authorization_header.split(' ')[1]
+    verified_token = unsignJWT(token)
+
+    if not verified_token:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Expired token')
+
+    if 'error' in verified_token.keys():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=verified_token['error'])
+    return verified_token
