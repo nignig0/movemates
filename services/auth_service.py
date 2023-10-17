@@ -16,16 +16,16 @@ def token_response(token: str):
 def signJWT(user_id: str) -> Dict[str,str]:
     payload = {
         'user_id': user_id,
-        'expiry_time': time.time()+600
+        'expiry_time': time.time()+86400
     }
 
     token = jwt.encode(payload=payload, key = secret, algorithm=algorithm)
     
-    return token_response(f'Bearer {token}')
+    return token_response(token)
 
 def unsignJWT(token: str) -> Dict:
     try:
-        payload = jwt.decode(token, key = secret, algorithm = algorithm)
+        payload = jwt.decode(token, key = secret, algorithms=[algorithm])
 
         return payload if payload['expiry_time'] >= time.time() else None
 
@@ -47,5 +47,5 @@ def checkAuthorisation(request: Request):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Expired token')
 
     if 'error' in verified_token.keys():
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=verified_token['error'])
-    return verified_token
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=str(verified_token['error']))
+    return verified_token['user_id']

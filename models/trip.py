@@ -1,10 +1,11 @@
+from bson import ObjectId
 from pydantic import BaseModel, Field
 from enums import *
 from datetime import datetime
 import uuid
     
 class Trip(BaseModel):
-    user_id: str
+    user_id: ObjectId
     limit: int = Field(gt=1)
     trip_type: TripTypes
     destination: str
@@ -15,6 +16,9 @@ class Trip(BaseModel):
     travel_buddies: list[str] = None
     estimated_cost_of_trip: int
     active: bool = True
+
+    class Config: 
+        arbitrary_types_allowed = True
 
 class TripCreationObject(BaseModel):
     limit: int = Field(gt=1)
