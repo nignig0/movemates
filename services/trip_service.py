@@ -1,7 +1,6 @@
-from fastapi import Request
+from fastapi import Request, HTTPException, status
 from models.trip import *
 from pymongo.collection import Collection
-import json
 from utils.mappers import documentToTrip
 
 def get_trip_collection(request: Request)-> Collection:
@@ -20,4 +19,13 @@ def get_all_trips(request: Request, limit: int, page: int):
     for trip in dbTrips:
         trips.append(documentToTrip(trip))
     return trips
+
+def get_one_trip(request: Request, trip_id: str):
+    db = get_trip_collection(request)
+    dbTrip = db.find_one({'_id': ObjectId(trip_id)})
+    
+    if dbTrip == None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Trip does not exis')
+
+    return documentToTrip(dbTrip)
 

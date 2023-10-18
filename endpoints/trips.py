@@ -44,4 +44,18 @@ def get_all_trips(request: Request,
             message='There was an error',
             data=str(e),
         )
-    
+
+@router.get('/{trip_id}')
+def get_one_trip(request: Request, trip_id: Annotated[str, "The trip id"]):
+    try:
+        trip = trip_service.get_one_trip(request, trip_id)
+        return response_success(
+            message='Trip successfully retrieved',
+            data = trip
+        )
+    except Exception as e:
+        print(e)
+        return response_failure(
+            message='Trip does not ecist',
+            data=str(e),
+        )   
