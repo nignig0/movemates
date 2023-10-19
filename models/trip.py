@@ -13,7 +13,7 @@ class Trip(BaseModel):
     rt_meet_up_spot: str = None #rt -> round trip
     departure_time: datetime
     rt_departure_time: datetime = None
-    travel_buddies: list[str] = None
+    travel_buddies: list[ObjectId] = None
     estimated_cost_of_trip: int
     active: bool = True
 
@@ -30,4 +30,17 @@ class TripCreationObject(BaseModel):
     rt_departure_time: datetime = None
     travel_buddies: list[str] = None
     estimated_cost_of_trip: int
+    active: bool = True     
+
+
+class TripUpdatingObject(BaseModel):
+    limit: int = None
+    trip_type: TripTypes = None
+    destination: str = None
+    meet_up_spot: str = None
+    rt_meet_up_spot: str = None #rt -> round trip
+    departure_time: datetime = None
+    rt_departure_time: datetime = None
+    travel_buddies: list[str] = None
+    estimated_cost_of_trip: int = None
     active: bool = True     

@@ -1,6 +1,7 @@
 from fastapi import Request, HTTPException, status
 from models.trip import *
 from pymongo.collection import Collection
+from pymongo import ReturnDocument
 from utils.mappers import documentToTrip
 
 def get_trip_collection(request: Request)-> Collection:
@@ -28,4 +29,9 @@ def get_one_trip(request: Request, trip_id: str):
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Trip does not exis')
 
     return documentToTrip(dbTrip)
+
+def update_trip(request: Request, trip_id: str, updateObj: TripUpdatingObject):
+    db = get_trip_collection(request)
+    new_trip = db.find_one_and_update({'_id': ObjectId(trip_id)}, {'$set': updateObj}, return_document=ReturnDocument.AFTER)
+    return documentToTrip(new_trip)
 
