@@ -1,12 +1,16 @@
+import os
 import time
 import jwt
 from typing import Dict
 from dotenv import dotenv_values
 from fastapi import HTTPException, Request, status
 
-config = dotenv_values('.env')
-algorithm = config['algorithm']
-secret = config['secret']
+#config = dotenv_values('.env')
+#algorithm = config['algorithm']
+#secret = config['secret']
+
+algorithm = os.environ['algorithm']
+secret = os.environ['secret']
 
 def token_response(token: str):
     return {
