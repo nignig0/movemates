@@ -14,7 +14,6 @@ def documentToTrip(dbTrip: Trip):
         'travel_buddies':  [str(buddy) for buddy in dbTrip['travel_buddies']] if dbTrip['travel_buddies'] else [],
         'estimated_cost_of_trip': dbTrip['estimated_cost_of_trip'],
         'active': dbTrip['active'],
-        'created_at':  dbTrip['created_at'],
-        'updated_at':  dbTrip['updated_at'],
-
+        'created_at': None if 'created_at' not in dbTrip.keys() else  dbTrip['created_at'],
+        'updated_at':  None if 'created_at' not in dbTrip.keys() else  dbTrip['created_at'],
     }
