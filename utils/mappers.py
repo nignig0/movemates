@@ -3,6 +3,7 @@ from models.trip import Trip
 def documentToTrip(dbTrip: Trip):
     return {
         '_id': str(dbTrip['_id']),
+        'limit': dbTrip['limit'],
         'user_id': str(dbTrip['user_id']),
         'trip_type': dbTrip['trip_type'],
         'destination': dbTrip['destination'],
