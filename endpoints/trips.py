@@ -22,6 +22,20 @@ def create_trip(request: Request, trip: TripCreationObject, token:str = Depends(
                 new_travel_buddies.append(ObjectId(buddies))
             trip['travel_buddies'] = new_travel_buddies
 
+        if trip['trip_type'] == TripTypes.ONE_WAY:
+            if trip['rt_meet_up_spot'] or trip['rt_departure_time']:
+                return response_failure(
+                    message = 'This is a one way trip!',
+                    status_code=status.HTTP_400_BAD_REQUEST
+                )
+
+        if trip['trip_type'] == TripTypes.ROUNDTRIP:
+            if not trip['rt_meet_up_spot'] or not trip['rt_departure_time']:
+                return response_failure(
+                    message = 'Round Trip Meet up spot and Round trip departure time are required for round trips',
+                    status = status.HTTP_400_BAD_REQUEST
+                )
+
         response_data = trip_service.create_trip(request, trip)
         return response_success(
             message = 'Trip Successfully Created!',

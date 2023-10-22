@@ -10,7 +10,7 @@ def documentToTrip(dbTrip: Trip):
         'meet_up_spot': dbTrip['meet_up_spot'],
         'rt_meet_up_spot': dbTrip['rt_meet_up_spot'],
         'departure_time': str(dbTrip['departure_time']),
-        'rt_departure_time': None if dbTrip['departure_time'] == None else str(dbTrip['rt_departure_time']),
+        'rt_departure_time': None if not dbTrip['departure_time'] else str(dbTrip['rt_departure_time']),
         'travel_buddies':  [str(buddy) for buddy in dbTrip['travel_buddies']] if dbTrip['travel_buddies'] else [],
         'estimated_cost_of_trip': dbTrip['estimated_cost_of_trip'],
         'active': dbTrip['active'],
