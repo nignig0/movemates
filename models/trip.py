@@ -16,8 +16,8 @@ class Trip(BaseModel):
     travel_buddies: list[ObjectId] = None
     estimated_cost_of_trip: int
     active: bool = True
-    created_at: datetime
-    updated_at: datetime
+    created_at: datetime = None
+    updated_at: datetime = None
 
     class Config: 
         arbitrary_types_allowed = True

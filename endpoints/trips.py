@@ -63,7 +63,7 @@ def get_one_trip(request: Request, trip_id: Annotated[str, "The trip id"]):
     except Exception as e:
         print(e)
         return response_failure(
-            message='Trip does not exist',
+            message='There was an error',
             data=str(e),
         )   
 
