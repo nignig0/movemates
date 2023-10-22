@@ -16,6 +16,8 @@ class Trip(BaseModel):
     travel_buddies: list[ObjectId] = None
     estimated_cost_of_trip: int
     active: bool = True
+    created_at: datetime
+    updated_at: datetime
 
     class Config: 
         arbitrary_types_allowed = True
@@ -30,7 +32,8 @@ class TripCreationObject(BaseModel):
     rt_departure_time: datetime = None
     travel_buddies: list[str] = None
     estimated_cost_of_trip: int
-    active: bool = True     
+    active: bool = True
+    created_at: datetime = datetime.now()     
 
 
 class TripUpdatingObject(BaseModel):
@@ -43,4 +46,5 @@ class TripUpdatingObject(BaseModel):
     rt_departure_time: datetime = None
     travel_buddies: list[str] = None
     estimated_cost_of_trip: int = None
-    active: bool = True     
+    active: bool = True
+    updated_at: datetime = datetime.now()     

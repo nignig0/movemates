@@ -13,6 +13,8 @@ def documentToTrip(dbTrip: Trip):
         'rt_departure_time': str(dbTrip['rt_departure_time']),
         'travel_buddies':  [str(buddy) for buddy in dbTrip['travel_buddies']] if dbTrip['travel_buddies'] else [],
         'estimated_cost_of_trip': dbTrip['estimated_cost_of_trip'],
-        'active': dbTrip['active']
+        'active': dbTrip['active'],
+        'created_at': str(dbTrip['created_at']),
+        'updated_at': str(dbTrip['updated_at'])
 
     }
